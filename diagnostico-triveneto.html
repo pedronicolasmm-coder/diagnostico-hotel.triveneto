@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico de Instagram | Hotel Triveneto Gramado</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:       #3A5A3A;
+  --green-dark:  #2A4230;
+  --green-light: #4A7A4A;
+  --gold:        #C8A84B;
+  --gold-light:  #D4B86A;
+  --cream:       #F5F0E8;
+  --cream-mid:   #EDE5D8;
+  --cream-deep:  #E0D5C0;
+  --white:       #FFFFFF;
+  --dark:        #1C2418;
+  --mid:         #5A5A4A;
+  --light:       #8A8A7A;
+  --red-italian: #C8202A;
+  --white-italian:#FFFFFF;
+  --green-italian:#2A6A2A;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--cream);
+  color: var(--dark);
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV - like site: dark green */
+.nav {
+  background: var(--green-dark);
+  padding: 0 72px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.nav-flag {
+  display: flex;
+  flex-direction: column;
+  width: 14px;
+  gap: 3px;
+}
+.nav-flag span {
+  height: 4px;
+  border-radius: 1px;
+  display: block;
+}
+.nav-flag span:nth-child(1) { background: var(--green-italian); }
+.nav-flag span:nth-child(2) { background: var(--white-italian); }
+.nav-flag span:nth-child(3) { background: var(--red-italian); }
+.nav-logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: 0.06em;
+}
+.nav-logo-text sub {
+  display: block;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.52rem;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-top: 1px;
+}
+.nav-right {
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
+
+/* HERO - full photo dark with couple like site */
+.hero {
+  background: var(--green-dark);
+  min-height: 86vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 80px 72px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 100% 80% at 60% 30%, rgba(80,120,60,0.3) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 10% 80%, rgba(30,60,20,0.5) 0%, transparent 50%),
+    linear-gradient(150deg, #1a2a14 0%, #2a4020 50%, #1a2a14 100%);
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20,35,15,0.9) 0%, rgba(20,35,15,0.4) 60%, rgba(20,35,15,0.1) 100%);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+}
+.hero-flag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.hero-flag-bar {
+  display: flex;
+  gap: 3px;
+}
+.hero-flag-bar span {
+  width: 18px;
+  height: 5px;
+  border-radius: 1px;
+}
+.hero-flag-bar span:nth-child(1) { background: var(--green-italian); }
+.hero-flag-bar span:nth-child(2) { background: #fff; }
+.hero-flag-bar span:nth-child(3) { background: var(--red-italian); }
+.hero-eyebrow {
+  font-size: 0.55rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-light);
+}
+.hero-sub {
+  font-size: 0.83rem;
+  color: rgba(255,255,255,0.55);
+  max-width: 480px;
+  line-height: 1.85;
+}
+
+/* STATS BAR - green like nav */
+.stats-bar {
+  background: var(--green);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat {
+  padding: 28px 36px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+}
+.stat:last-child { border-right: none; }
+.stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  display: block;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-top: 6px;
+  display: block;
+}
+
+/* DIVIDER LINE - like site */
+.divider-line {
+  width: 48px;
+  height: 3px;
+  background: var(--green);
+  margin: 0 auto 24px;
+}
+
+/* SECTIONS */
+.section-white {
+  background: var(--white);
+  padding: 96px 72px;
+}
+.section-cream {
+  background: var(--cream);
+  padding: 96px 72px;
+}
+.inner { max-width: 1100px; margin: 0 auto; }
+
+/* EYEBROW like site: small line + title centered */
+.eyebrow {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.eyebrow-line {
+  width: 40px;
+  height: 3px;
+  background: var(--green);
+  margin: 0 auto 16px;
+}
+.eyebrow-text {
+  font-size: 0.58rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: var(--green-dark);
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.section-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--green-light);
+}
+.section-lead {
+  font-size: 0.82rem;
+  color: var(--mid);
+  line-height: 1.9;
+  text-align: center;
+  max-width: 580px;
+  margin: 0 auto 56px;
+}
+
+/* INTRO GRID */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  margin-top: 56px;
+}
+.intro-text p {
+  font-size: 0.83rem;
+  color: var(--mid);
+  line-height: 1.9;
+}
+.intro-text p + p { margin-top: 16px; }
+
+.highlight-box {
+  background: var(--cream);
+  border-left: 4px solid var(--green);
+  padding: 32px 36px;
+  border-radius: 0 8px 8px 0;
+}
+.highlight-box p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--green-dark);
+  line-height: 1.6;
+}
+
+/* FINDINGS GRID */
+.findings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.finding-card {
+  background: var(--white);
+  padding: 36px 28px;
+  border-radius: 8px;
+  border-top: 4px solid var(--green);
+  position: relative;
+}
+.fc-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--cream-deep);
+  display: block;
+  margin-bottom: 16px;
+}
+.fc-tag {
+  font-size: 0.5rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--green-light);
+  display: block;
+  margin-bottom: 10px;
+}
+.finding-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.finding-card p {
+  font-size: 0.76rem;
+  color: var(--mid);
+  line-height: 1.85;
+}
+.fc-badge {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  background: var(--green-dark);
+  color: #fff;
+  border-radius: 2px;
+}
+.fc-badge.gold { background: var(--gold); color: var(--dark); }
+.fc-badge.outline { background: transparent; border: 1px solid var(--green); color: var(--green); }
+
+/* VIRAL SECTION - dark green like nav */
+.viral-section {
+  background: var(--green-dark);
+  padding: 96px 72px;
+}
+.viral-inner { max-width: 1100px; margin: 0 auto; }
+.viral-section .eyebrow-line { background: var(--gold); }
+.viral-section .eyebrow-text { color: var(--gold-light); }
+.viral-section .section-title { color: #fff; }
+.viral-section .section-title em { color: var(--gold-light); }
+.viral-section .section-lead { color: rgba(255,255,255,0.5); }
+
+.viral-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin: 48px 0;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.viral-box {
+  padding: 40px 32px;
+  background: rgba(255,255,255,0.04);
+  border-right: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+}
+.viral-box:last-child { border-right: none; }
+.vb-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  display: block;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.vb-label {
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.6;
+  display: block;
+}
+
+.viral-quote {
+  border: 1px solid rgba(200,168,75,0.25);
+  padding: 36px 44px;
+  margin-top: 0;
+  text-align: left;
+}
+.viral-quote p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+}
+
+/* PROPOSAL */
+.proposal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 48px;
+}
+.proposal-item {
+  background: var(--white);
+  padding: 36px 32px;
+  border-radius: 8px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  border: 1px solid var(--cream-deep);
+}
+.pi-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cream-deep);
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 36px;
+}
+.pi-body strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--green-dark);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.pi-body p {
+  font-size: 0.76rem;
+  color: var(--mid);
+  line-height: 1.85;
+}
+
+/* CTA - like site's reservar button */
+.cta {
+  background: var(--green-dark);
+  padding: 100px 72px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 110%, rgba(200,168,75,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.cta-inner { max-width: 560px; margin: 0 auto; position: relative; z-index: 1; }
+.cta .eyebrow-line { background: var(--gold); }
+.cta .eyebrow-text { color: var(--gold-light); }
+.cta .section-title { color: #fff; font-size: clamp(1.5rem, 2.8vw, 2.2rem); }
+.cta .section-title em { color: var(--gold-light); }
+.cta-body {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.9;
+  margin-bottom: 44px;
+}
+/* Button exactly like site: solid green with arrow */
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--green);
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 16px 40px;
+  text-decoration: none;
+  border-radius: 3px;
+  transition: background 0.25s;
+}
+.cta-btn:hover { background: var(--green-light); }
+.cta-btn::after { content: '→'; font-size: 1rem; font-weight: 300; }
+.cta-note {
+  margin-top: 20px;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+}
+
+/* FOOTER */
+footer {
+  background: #1a2418;
+  padding: 28px 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.f-l {
+  font-size: 0.55rem;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.1em;
+}
+.f-l span { color: var(--gold-light); opacity: 0.7; }
+.f-r {
+  font-size: 0.52rem;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: 0.1em;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .nav { padding: 0 24px; }
+  .hero { padding: 56px 24px 64px; min-height: auto; }
+  .stats-bar { grid-template-columns: 1fr 1fr; }
+  .stat { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .section-white, .section-cream { padding: 64px 24px; }
+  .intro-grid { grid-template-columns: 1fr; gap: 32px; }
+  .findings-grid { grid-template-columns: 1fr; }
+  .viral-section { padding: 64px 24px; }
+  .viral-grid { grid-template-columns: 1fr 1fr; }
+  .proposal-grid { grid-template-columns: 1fr; }
+  .cta { padding: 72px 24px; }
+  footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-flag">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-logo-text">
+      Hotel Triveneto
+      <sub>Gramado · Serra Gaúcha</sub>
+    </div>
+  </div>
+  <div class="nav-right">Diagnóstico de Instagram · 2025</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-flag">
+      <div class="hero-flag-bar">
+        <span></span><span></span><span></span>
+      </div>
+      <span class="hero-eyebrow">Diagnóstico Gratuito · Instagram</span>
+    </div>
+    <h1>
+      O perfil mais equilibrado<br>
+      da análise.<br>
+      <em>Mas com potencial<br>muito maior.</em>
+    </h1>
+    <p class="hero-sub">
+      22,9 mil seguidores, Reels com 291 e 293 mil visualizações, equipe que responde comentários.
+      O Triveneto tem ativos reais. Esta análise mostra como transformar esses pontos fortes em reservas consistentes.
+    </p>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat">
+    <span class="stat-val">22,9k</span>
+    <span class="stat-label">Seguidores</span>
+  </div>
+  <div class="stat">
+    <span class="stat-val">293k</span>
+    <span class="stat-label">Views no maior Reel</span>
+  </div>
+  <div class="stat">
+    <span class="stat-val">136</span>
+    <span class="stat-label">Curtidas no post fixado</span>
+  </div>
+  <div class="stat">
+    <span class="stat-val">2</span>
+    <span class="stat-label">Reels acima de 290 mil views</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="section-white">
+  <div class="inner">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Contexto</span>
+    </div>
+    <h2 class="section-title">Hotel Triveneto Gramado</h2>
+    <p class="section-lead">
+      Dos três perfis analisados, o Triveneto é o mais equilibrado. Estética consistente, equipe que responde comentários e Reels com alcance viral real. Os pontos abaixo não são sobre reconstruir, são sobre escalar o que já funciona.
+    </p>
+
+    <div class="intro-grid">
+      <div class="intro-text">
+        <p>O perfil tem 133 publicações e uma proporção de seguidores muito saudável, com apenas 298 contas seguidas. A bio é objetiva e comunica um posicionamento claro: conforto, acolhimento e custo-benefício em localização estratégica.</p>
+        <p>O grid mistura bem fotos de casais, café da manhã, fachada, decoração sazonal e vídeos com pessoas reais. Isso dá um ar mais humano e menos "banner publicitário" do que outros perfis do mesmo segmento.</p>
+        <p>Um diferencial importante: diferente da maioria dos hotéis analisados, a equipe do Triveneto responde comentários de seguidores, inclusive dúvidas sobre diárias e valores. Isso é direto no funil de conversão.</p>
+      </div>
+      <div>
+        <div class="highlight-box">
+          <p>"Dos três perfis analisados, o Triveneto é o único que tem Reels virais reais acima de 290 mil visualizações e uma equipe que responde ativamente os comentários dos seguidores. Esses dois fatores juntos são raros no segmento hoteleiro."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINDINGS -->
+<div class="section-cream">
+  <div class="inner">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">O que foi encontrado</span>
+    </div>
+    <h2 class="section-title">Pontos fortes e <em>oportunidades</em></h2>
+    <p class="section-lead">
+      O Triveneto tem uma base sólida. Os pontos abaixo identificam o que já funciona bem e o que pode ser ajustado para escalar os resultados.
+    </p>
+
+    <div class="findings-grid">
+      <div class="finding-card">
+        <span class="fc-num">— 01</span>
+        <span class="fc-tag">Ponto forte</span>
+        <h3>Equipe responde comentários ativamente</h3>
+        <p>Diferente da maioria dos hotéis, o Triveneto responde dúvidas sobre diárias e valores nos comentários. Cada resposta é uma conversa que pode virar reserva e um sinal positivo para o algoritmo.</p>
+        <span class="fc-badge gold">Diferencial competitivo</span>
+      </div>
+
+      <div class="finding-card">
+        <span class="fc-num">— 02</span>
+        <span class="fc-tag">Ponto forte</span>
+        <h3>Reels com alcance viral comprovado</h3>
+        <p>Dois Reels com 291 mil e 293 mil visualizações, muito acima da audiência de seguidores. Isso prova que o formato funciona e que existe uma fórmula de sucesso que ainda não foi mapeada como padrão repetível.</p>
+        <span class="fc-badge gold">Alto potencial</span>
+      </div>
+
+      <div class="finding-card">
+        <span class="fc-num">— 03</span>
+        <span class="fc-tag">Ponto forte</span>
+        <h3>Hashtags corretas e CTAs nas legendas</h3>
+        <p>Diferente do Alpenhof, as hashtags estão formatadas corretamente. Há pelo menos um exemplo de pergunta direta ao público nas legendas, boa prática que vale ser repetida com mais frequência.</p>
+        <span class="fc-badge gold">Boa prática</span>
+      </div>
+
+      <div class="finding-card">
+        <span class="fc-num">— 04</span>
+        <span class="fc-tag">Oportunidade</span>
+        <h3>Posts estáticos recentes com baixo engajamento</h3>
+        <p>Os posts mais recentes têm entre 14 e 22 curtidas para 22,9 mil seguidores. O feed estático depende muito dos Reels para gerar alcance. A estratégia de conteúdo estático precisa ser fortalecida.</p>
+        <span class="fc-badge outline">Prioridade</span>
+      </div>
+
+      <div class="finding-card">
+        <span class="fc-num">— 05</span>
+        <span class="fc-tag">Oportunidade</span>
+        <h3>Fórmula dos Reels virais ainda não virou estratégia</h3>
+        <p>Com 291k e 293k visualizações em dois Reels, o padrão de sucesso existe. Mas a maioria dos vídeos fica em 2k a 7,7k. O que diferencia os virais ainda não foi identificado e replicado sistematicamente.</p>
+        <span class="fc-badge outline">Alto impacto</span>
+      </div>
+
+      <div class="finding-card">
+        <span class="fc-num">— 06</span>
+        <span class="fc-tag">Oportunidade</span>
+        <h3>CTAs e perguntas nas legendas poderiam ser mais frequentes</h3>
+        <p>A tática de perguntas diretas ao público funciona bem conforme o post mais engajado mostra. Mas esse recurso aparece raramente nas legendas recentes. Aplicado de forma consistente, eleva o engajamento médio.</p>
+        <span class="fc-badge outline">Ajuste</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIRAL SECTION -->
+<div class="viral-section">
+  <div class="viral-inner">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">O dado mais importante</span>
+    </div>
+    <h2 class="section-title">Reels com <em>alcance viral real</em></h2>
+    <p class="section-lead">
+      Esses números não são comuns no segmento hoteleiro da Serra Gaúcha. Eles provam que o formato Reels funciona para o Triveneto e que existe uma fórmula de sucesso esperando ser transformada em estratégia consistente.
+    </p>
+
+    <div class="viral-grid">
+      <div class="viral-box">
+        <span class="vb-val">291k</span>
+        <span class="vb-label">Views<br>Reel #1</span>
+      </div>
+      <div class="viral-box">
+        <span class="vb-val">293k</span>
+        <span class="vb-label">Views<br>Reel #2</span>
+      </div>
+      <div class="viral-box">
+        <span class="vb-val">126k</span>
+        <span class="vb-label">Views<br>Reel #3</span>
+      </div>
+      <div class="viral-box">
+        <span class="vb-val">13x</span>
+        <span class="vb-label">Acima do total<br>de seguidores</span>
+      </div>
+    </div>
+
+    <div class="viral-quote">
+      <p>"Um Reel com 293 mil visualizações para um perfil com 22,9 mil seguidores significa que o conteúdo alcançou mais de 13 vezes a audiência atual. Esse é o tipo de alcance que nenhuma campanha paga consegue garantir. O trabalho é entender o que gerou isso e repetir."</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROPOSAL -->
+<div class="section-white">
+  <div class="inner">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">O que propomos</span>
+    </div>
+    <h2 class="section-title">Como escalar o que <em>já funciona</em></h2>
+    <p class="section-lead">
+      O Triveneto não precisa reconstruir nada. Precisa sistematizar o que já funciona e fortalecer os pontos que ainda limitam o resultado.
+    </p>
+
+    <div class="proposal-grid">
+      <div class="proposal-item">
+        <span class="pi-num">01</span>
+        <div class="pi-body">
+          <strong>Mapear e replicar a fórmula dos Reels virais</strong>
+          <p>Identificar o que os Reels de 291k e 293k têm em comum, seja gancho, áudio, tema ou formato, e aplicar esse padrão sistematicamente. Transformar picos isolados em consistência.</p>
+        </div>
+      </div>
+      <div class="proposal-item">
+        <span class="pi-num">02</span>
+        <div class="pi-body">
+          <strong>Fortalecer o conteúdo estático com mais storytelling</strong>
+          <p>Os posts fixados com 131 e 136 curtidas mostram que o engajamento existe quando o conteúdo tem profundidade. Trazer esse padrão para o conteúdo semanal regular.</p>
+        </div>
+      </div>
+      <div class="proposal-item">
+        <span class="pi-num">03</span>
+        <div class="pi-body">
+          <strong>Incluir perguntas e CTAs em todas as legendas</strong>
+          <p>A tática de perguntas diretas funcionou bem no post mais engajado. Aplicar isso sistematicamente em todas as legendas aumenta o engajamento médio e sinaliza ao algoritmo que o perfil é ativo.</p>
+        </div>
+      </div>
+      <div class="proposal-item">
+        <span class="pi-num">04</span>
+        <div class="pi-body">
+          <strong>Manter e escalar o atendimento nos comentários</strong>
+          <p>Responder comentários já é um diferencial real do Triveneto. Escalar isso com respostas mais rápidas e direcionadas para reserva transforma cada comentário em uma oportunidade concreta de venda.</p>
+        </div>
+      </div>
+      <div class="proposal-item">
+        <span class="pi-num">05</span>
+        <div class="pi-body">
+          <strong>Explorar o nicho romântico com mais profundidade</strong>
+          <p>O grid mostra fotos de casais com bom resultado. Gramado é um dos destinos românticos mais procurados do Brasil. Criar uma linha editorial focada nesse público pode ser uma alavanca de conversão importante.</p>
+        </div>
+      </div>
+      <div class="proposal-item">
+        <span class="pi-num">06</span>
+        <div class="pi-body">
+          <strong>Tráfego pago com criativos baseados nos Reels virais</strong>
+          <p>Com dois Reels comprovadamente virais, as campanhas no Meta Ads já têm criativos validados para usar como base. Segmentar para casais planejando viagem a Gramado com orçamento e retorno previsíveis.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="cta-inner">
+    <div class="eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Próximo passo</span>
+    </div>
+    <h2 class="section-title">Agende uma conversa<br><em>gratuita com Pedro</em></h2>
+    <p class="cta-body">
+      20 a 30 minutos para entender como funciona o trabalho, tirar dúvidas
+      e ver se faz sentido para o Hotel Triveneto. Sem custo, sem compromisso.
+    </p>
+    <a href="https://wa.me/5555991011436" class="cta-btn">Agendar conversa gratuita</a>
+    <p class="cta-note">20 a 30 minutos · 100% gratuito · Sem compromisso</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-l">Diagnóstico preparado por <span>Pedro Munareto</span> · Gestor de Instagram e Tráfego Pago</div>
+  <div class="f-r">Material elaborado exclusivamente para o Hotel Triveneto · Gramado RS</div>
+</footer>
+
+</body>
+</html>
